@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PushNotification</string>
+    <string name="button_cofirm">Confirm</string>
+    <string name="title_notification">Push Notification</string>
+</resources>
