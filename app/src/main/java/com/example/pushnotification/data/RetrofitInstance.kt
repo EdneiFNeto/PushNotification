@@ -1,5 +1,6 @@
 package com.example.pushnotification.data
 
+import com.example.pushnotification.BuildConfig
 import com.example.pushnotification.data.api.service.NotificationService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,7 +19,7 @@ class RetrofitInstance {
 
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://fcm.googleapis.com/fcm/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

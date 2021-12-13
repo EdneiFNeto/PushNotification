@@ -44,6 +44,7 @@ Dentro do arquivo local.properties e necessário criar duas variáveis que devem
 ```local.properties
   KEY_API=CHAVE_SERVIDOR
   PROJECT_ID=ID_DO_REMETENTE
+  BASE_URL="https://fcm.googleapis.com/fcm/"
 ```
 ```build.gradle
 //build.gradle - Project
