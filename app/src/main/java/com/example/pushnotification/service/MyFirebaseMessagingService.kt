@@ -14,7 +14,7 @@ import com.google.firebase.messaging.RemoteMessage
 
 private const val TAG = "MyFirebaseMessService"
 
-class MyFirebaseMessagingService: FirebaseMessagingService() {
+class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
@@ -26,8 +26,8 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         }
 
         remoteMessage.notification?.let {
-            Log.i(TAG, "Message Notification Body: ${it.body}")
-            showNotification(it.body)
+            Log.i(TAG, "Message Notification Body: ${it}")
+            showNotification(it)
         }
     }
 
@@ -46,24 +46,29 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         PreferencesHelpers(applicationContext).setToken(token)
     }
 
-    private fun showNotification(message: String?) {
+    private fun showNotification(notification: RemoteMessage.Notification) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel =
-                NotificationChannel(CHANNEL_ID, CHANNEL_ID, NotificationManager.IMPORTANCE_DEFAULT)
+                NotificationChannel(
+                    CHANNEL_ID,
+                    CHANNEL_ID,
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
             val manager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(notificationChannel)
         }
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle("Notification Test")
-            .setContentText(message)
+            .setContentTitle(notification.title)
+            .setContentText(notification.body)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
 
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(1, builder.build())
+
     }
 }
