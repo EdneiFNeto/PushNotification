@@ -138,6 +138,34 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             showNotification(it)
         }
     }
+    
+    private fun showNotification(notification: RemoteMessage.Notification) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel =
+                NotificationChannel(
+                    CHANNEL_ID,
+                    CHANNEL_ID,
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+            val manager = getSystemService(NotificationManager::class.java)
+            manager.createNotificationChannel(notificationChannel)
+        }
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle(notification.title)
+            .setContentText(notification.body)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(1, builder.build())
+
+    }
  }
 ```
+
+
  
