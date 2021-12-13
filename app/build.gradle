@@ -24,6 +24,8 @@ android {
             localProperties.load(new FileInputStream(rootProject.file("local.properties")))
             buildConfigField('String', 'KEY_API', localProperties['KEY_API'])
             buildConfigField('String', 'PROJECT_ID', localProperties['PROJECT_ID'])
+            buildConfigField('String', 'BASE_URL', localProperties['BASE_URL'])
+            buildConfigField('String', 'BASE_URL', localProperties['BASE_URL'])
         }
 
         release {
