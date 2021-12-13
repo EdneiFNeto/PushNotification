@@ -10,7 +10,6 @@ import retrofit2.http.POST
 
 interface NotificationService {
     @POST("send")
-
     fun send(
         @Header("Content-Type") type: String = "application/json",
         @Header("project_id") project_id: String = BuildConfig.PROJECT_ID,
